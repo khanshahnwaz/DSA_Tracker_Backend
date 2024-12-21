@@ -6,7 +6,7 @@ require('dotenv').config();
 const app = express();
 app.use(express.json());
 const corsOptions = {
-  origin: ['http://localhost:3000'], // Add localhost for testing
+  origin:'*', // Add localhost for testing
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials:'false'
@@ -29,7 +29,7 @@ app.options('*', cors(corsOptions));
 app.use('/api/dsa', dsaRoute);
 app.listen(5000, () => console.log('Server running on port 5000'));
 
-module.exports=app;
+// module.exports=app;
 
 // Handle preflight OPTIONS requests
 
