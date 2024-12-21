@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-     "deploy": "vercel --prod",
+    "deploy": "vercel --prod",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
