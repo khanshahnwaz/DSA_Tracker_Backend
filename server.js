@@ -11,6 +11,9 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
+  app.get('/',(req, res) => {
+    res.send('Hello! Welcome to DSA_Tracker.');
+  })
 const dsaRoute = require('./routes/dsa');
 app.use('/api/dsa', dsaRoute);
 
