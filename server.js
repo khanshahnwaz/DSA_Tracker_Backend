@@ -14,7 +14,14 @@ mongoose.connect(process.env.MONGO_URI)
   app.get('/',(req, res) => {
     res.send('Hello! Welcome to DSA_Tracker.');
   })
+
+
 const dsaRoute = require('./routes/dsa');
 app.use('/api/dsa', dsaRoute);
 
+  // Vercel serverless function handler
+  module.exports = (req, res) => {
+    // Use the express app as a request handler
+    app(req, res);
+  };
 app.listen(5000, () => console.log('Server running on port 5000'));
