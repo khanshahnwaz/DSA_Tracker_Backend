@@ -5,7 +5,14 @@ require('dotenv').config();
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+const corsOptions = {
+  origin: ['http://localhost:3000'], // Add localhost for testing
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials:'false'
+};
+
+app.use(cors(corsOptions));
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB Connected'))
@@ -17,14 +24,20 @@ mongoose.connect(process.env.MONGO_URI)
 
 
 const dsaRoute = require('./routes/dsa');
-app.use('/api/dsa', dsaRoute);
+app.options('*', cors(corsOptions));
 
-  // Vercel serverless function handler
-  module.exports = (req, res) => {
-    // Use the express app as a request handler
-    app(req, res);
-  };
+app.use('/api/dsa', dsaRoute);
 app.listen(5000, () => console.log('Server running on port 5000'));
+
+module.exports=app;
+
+// Handle preflight OPTIONS requests
+
+  // // Vercel serverless function handler
+  // module.exports = (req, res) => {
+  //   // Use the express app as a request handler
+  //   app(req, res);
+  // };
 
 
 
