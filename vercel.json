@@ -1,22 +1,19 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "./server.js",
-        "use": "@vercel/node"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "/server.js"
-      }
-    ],
-    "function":{
-    "api/*":{
-      "maxDuration":30
+  "version": 2,
+  "builds": [
+    {
+      "src": "./server.js",
+      "use": "@vercel/node"
     }
+  ],
+  "routes": [
+    {
+      "src": "/routes/dsa",
+      "dest": "/server.js"
+    },
+    {
+      "src": "/.*",
+      "dest": "/server.js"
     }
-
-  }
-  
+  ]
+}
