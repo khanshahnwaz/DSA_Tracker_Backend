@@ -53,7 +53,9 @@ router.post('/', async (req, res) => {
     res.status(500).json(err);
   }
 });
-
+router.get('/example',async (req,res)=>{
+  res.send("finding for error.")
+})
 router.get('/', async (req, res) => {
   try {
     const dsaEntries = await DSA.find();
