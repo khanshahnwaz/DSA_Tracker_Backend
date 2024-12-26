@@ -43,7 +43,7 @@ router.post('/signup',async(req,res)=>{
         console.log("token ",token)
             const expires=new Date();
             expires.setDate(expires.getDate()+7)
-            res.cookie(COOKIE_NAME,token,{path:"/",domain:DOMAIN,expires,httpOnly:true,signed:true,secure: process.env.NODE_ENV === "production",})
+            res.cookie(COOKIE_NAME,token,{path:"/",domain:DOMAIN,expires,httpOnly:true,signed:true,})
 
         return res.status(201).json({message:"OK",name:user.name,email:user.email})
         }catch(err){
@@ -57,6 +57,7 @@ router.post('/signin',async(req,res)=>{
     // check if email exists
     try{
     const user=await User.findOne({email:email})
+    console.log("signed in user ",user)
     if(!user)
         return res.status(401).send("User does not exist.")
 // now compare password
@@ -73,11 +74,12 @@ if(!isPasswordCorrect)return res.status(403).send("Incorrect Password .")
 
         }
     );
+    console.log("Cookie cleared.")
 
     const token=createToken(user._id.toString(),user.email,"7d")
     const expires=new Date();
     expires.setDate(expires.getDate()+7)
-    res.cookie(COOKIE_NAME,token,{path:"/",domain:DOMAIN,expires,httpOnly:true,signed:true,secure: process.env.NODE_ENV === "production",})
+    res.cookie(COOKIE_NAME,token,{path:"/",domain:DOMAIN,expires,httpOnly:true,signed:true,})
 
     return res.status(200).json({message:"OK",name:user.name,email:user.email})
 }catch(err){
