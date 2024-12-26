@@ -82,11 +82,15 @@ app.get('/', (req, res) => {
   res.send('Hello! Welcome to DSA_Tracker.');
 });
 console.log("Cookie secret ",process.env.COOKIE_SECRET)
-app.use(cookieParser("this is shahnwaz khan"))
+try{
+app.use(cookieParser('this is shahnwaz khan'));
+}catch(err){
+  console.log("errro r",err)
+}
 app.use('/api/dsa',verifyToken, dsaRoute);
 app.use('/api/user',userRoute);
 export default (req, res) => {
   app(req, res);
 };
- app.listen(5000, () => console.log('Server running on port 5000'));
+//  app.listen(5000, () => console.log('Server running on port 5000'));
 
