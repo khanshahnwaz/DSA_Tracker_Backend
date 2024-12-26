@@ -6,11 +6,11 @@ import { COOKIE_NAME } from "../utils/constants.js";
 const router=express.Router();
 
 
-const DOMAIN = process.env.NODE_ENV === "production" 
-    ? "dsa-tracker-frontend-kappa.vercel.app" 
-    : "localhost";
+// const DOMAIN = process.env.NODE_ENV === "production" 
+//     ? "dsa-tracker-frontend-kappa.vercel.app" 
+//     : "localhost";
 
-
+const DOMAIN='localhost'
 // create new user 
 router.post('/signup',async(req,res)=>{
      

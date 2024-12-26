@@ -12,7 +12,7 @@ export const createToken=(id,email,expiresIn)=>{
 export const verifyToken=async(req,res,next)=>{
     // const token=req.signedCookies[`${COOKIE_NAME}`]
     const token=req.cookies[`${COOKIE_NAME}`]
-
+    console.log("Verifying ")
     if(!token || token.trim()==="")
         return res.status(401).json({message:"Token not recieved."})
     return new Promise ((resolve,reject)=>{
