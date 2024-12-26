@@ -83,7 +83,7 @@ app.get('/', (req, res) => {
 });
 console.log("Cookie secret ",process.env.COOKIE_SECRET)
 try{
-app.use(cookieParser('this is shahnwaz khan'));
+app.use(cookieParser(process.env.COOKIE_SECRET));
 }catch(err){
   console.log("errro r",err)
 }
