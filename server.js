@@ -63,7 +63,7 @@ const app = express();
 app.use(json());
 
 const corsOptions = {
-  origin: 'https://dsa-tracker-frontend-kappa.vercel.app',
+  origin: ['https://dsa-tracker-frontend-kappa.vercel.app','http://localhost:3000'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
@@ -71,7 +71,8 @@ const corsOptions = {
 
 };
 
-app.use(cors(corsOptions));
+app.use(cors(corsOptions,{
+}));
 
 connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB Connected'))
@@ -86,5 +87,5 @@ app.use('/api/user',userRoute);
 export default (req, res) => {
   app(req, res);
 };
-//  app.listen(5000, () => console.log('Server running on port 5000'));
+ app.listen(5000, () => console.log('Server running on port 5000'));
 
