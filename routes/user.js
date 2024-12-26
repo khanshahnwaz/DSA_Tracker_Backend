@@ -27,15 +27,15 @@ router.post('/signup',async(req,res)=>{
         await user.save();
         console.log("user created")
         // clear old cookie
-        // res.clearCookie(COOKIE_NAME,
-        //     {
-        //         path:"/",
-        //         httpOnly:true,
-        //         domain:DOMAIN,
-        //         signed:true
+        res.clearCookie(COOKIE_NAME,
+            {
+                path:"/",
+                httpOnly:true,
+                domain:DOMAIN,
+                signed:false
 
-        //     }
-        // );
+            }
+        );
         console.log("Cookie cleared.")
         // create token and store cookie 
         try{
@@ -45,7 +45,7 @@ router.post('/signup',async(req,res)=>{
         console.log("token ",token)
             const expires=new Date();
             expires.setDate(expires.getDate()+7)
-            res.cookie(COOKIE_NAME,token,{path:"/",domain:DOMAIN,expires,httpOnly:true,signed:true,})
+            res.cookie(COOKIE_NAME,token,{path:"/",domain:DOMAIN,expires,httpOnly:true,signed:false,})
 
         return res.status(201).json({message:"OK",name:user.name,email:user.email})
         }catch(err){
@@ -72,7 +72,7 @@ if(!isPasswordCorrect)return res.status(403).send("Incorrect Password .")
             path:"/",
             httpOnly:true,
             domain:DOMAIN,
-            signed:true
+            signed:false
 
         }
     );
@@ -81,7 +81,7 @@ if(!isPasswordCorrect)return res.status(403).send("Incorrect Password .")
     const token=createToken(user._id.toString(),user.email,"7d")
     const expires=new Date();
     expires.setDate(expires.getDate()+7)
-    res.cookie(COOKIE_NAME,token,{path:"/",domain:DOMAIN,expires,httpOnly:true,signed:true,})
+    res.cookie(COOKIE_NAME,token,{path:"/",domain:DOMAIN,expires,httpOnly:true,signed:false,})
 
     return res.status(200).json({message:"OK",name:user.name,email:user.email})
 }catch(err){
@@ -119,7 +119,7 @@ router.get('/signout',async(req,res)=>{
         path:"/",
         httpOnly:true,
         domain:DOMAIN,
-        signed:true
+        signed:false
 
     })
      // Log response headers
