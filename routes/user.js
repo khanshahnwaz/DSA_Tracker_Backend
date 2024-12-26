@@ -27,15 +27,15 @@ router.post('/signup',async(req,res)=>{
         await user.save();
         console.log("user created")
         // clear old cookie
-        res.clearCookie(COOKIE_NAME,
-            {
-                path:"/",
-                httpOnly:true,
-                domain:DOMAIN,
-                signed:false
+        // res.clearCookie(COOKIE_NAME,
+        //     {
+        //         path:"/",
+        //         httpOnly:true,
+        //         domain:DOMAIN,
+        //         signed:false
 
-            }
-        );
+        //     }
+        // );
         console.log("Cookie cleared.")
         // create token and store cookie 
         try{
