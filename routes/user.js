@@ -38,17 +38,19 @@ router.post('/signup',async(req,res)=>{
         );
         console.log("Cookie cleared.")
         // create token and store cookie 
-        
+        try{
 
         
         const token=createToken(user._id.toString(),user.email,"7d")
         console.log("token ",token)
             const expires=new Date();
             expires.setDate(expires.getDate()+7)
-            res.cookie(COOKIE_NAME,token,{path:"/",expires,httpOnly:true,signed:false,secure:NODE_ENV === 'production'})
+            res.cookie(COOKIE_NAME,token,{path:"/",expires,httpOnly:true,signed:false,secure:process.env.NODE_ENV === 'production'})
 
         return res.status(201).json({message:"OK",name:user.name,email:user.email})
-        
+        }catch(err){
+            return res.status(500).json({message:"Interval server error",error:err})
+        }
 })
 
 router.post('/signin',async(req,res)=>{
