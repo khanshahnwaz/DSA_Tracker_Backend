@@ -36,6 +36,9 @@ router.post('/signup',async(req,res)=>{
         );
         
         // create token and store cookie 
+        try{
+
+        
         const token=createToken(user._id.toString(),user.email,"7d")
         console.log("token ",token)
             const expires=new Date();
@@ -43,7 +46,9 @@ router.post('/signup',async(req,res)=>{
             res.cookie(COOKIE_NAME,token,{path:"/",domain:DOMAIN,expires,httpOnly:true,signed:true,secure: process.env.NODE_ENV === "production",})
 
         return res.status(201).json({message:"OK",name:user.name,email:user.email})
-
+        }catch(err){
+            return res.status(500).json({message:"Interval server error",error:err})
+        }
 })
 
 router.post('/signin',async(req,res)=>{
@@ -76,7 +81,9 @@ if(!isPasswordCorrect)return res.status(403).send("Incorrect Password .")
 
     return res.status(200).json({message:"OK",name:user.name,email:user.email})
 }catch(err){
-    return res.status(500).send("Internal server error.")
+    
+        return res.status(500).json({message:"Interval server error",error:err})
+    
 }
 })
 
