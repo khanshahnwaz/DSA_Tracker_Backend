@@ -5,6 +5,10 @@ import { createToken, verifyToken } from "../utils/token-manager.js";
 import { COOKIE_NAME } from "../utils/constants.js";
 const router=express.Router();
 
+
+const DOMAIN = process.env.NODE_ENV === "production" 
+    ? "dsa-tracker-frontend-kappa.vercel.app" 
+    : "localhost";
 // create new user 
 router.post('/signup',async(req,res)=>{
      
@@ -25,7 +29,7 @@ router.post('/signup',async(req,res)=>{
             {
                 path:"/",
                 httpOnly:true,
-                domain:"localhost",
+                domain:DOMAIN,
                 signed:true
 
             }
@@ -36,7 +40,7 @@ router.post('/signup',async(req,res)=>{
         console.log("token ",token)
             const expires=new Date();
             expires.setDate(expires.getDate()+7)
-            res.cookie(COOKIE_NAME,token,{path:"/",domain:"localhost",expires,httpOnly:true,signed:true})
+            res.cookie(COOKIE_NAME,token,{path:"/",domain:DOMAIN,expires,httpOnly:true,signed:true,secure: process.env.NODE_ENV === "production",})
 
         return res.status(201).json({message:"OK",name:user.name,email:user.email})
 
@@ -59,7 +63,7 @@ if(!isPasswordCorrect)return res.status(403).send("Incorrect Password .")
         {
             path:"/",
             httpOnly:true,
-            domain:"localhost",
+            domain:DOMAIN,
             signed:true
 
         }
@@ -68,7 +72,7 @@ if(!isPasswordCorrect)return res.status(403).send("Incorrect Password .")
     const token=createToken(user._id.toString(),user.email,"7d")
     const expires=new Date();
     expires.setDate(expires.getDate()+7)
-    res.cookie(COOKIE_NAME,token,{path:"/",domain:"localhost",expires,httpOnly:true,signed:true})
+    res.cookie(COOKIE_NAME,token,{path:"/",domain:DOMAIN,expires,httpOnly:true,signed:true,secure: process.env.NODE_ENV === "production",})
 
     return res.status(200).json({message:"OK",name:user.name,email:user.email})
 }catch(err){
@@ -103,7 +107,7 @@ router.get('/signout',async(req,res)=>{
     {
         path:"/",
         httpOnly:true,
-        domain:"localhost",
+        domain:DOMAIN,
         signed:true
 
     })
