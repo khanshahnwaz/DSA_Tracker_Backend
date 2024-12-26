@@ -9,6 +9,8 @@ const router=express.Router();
 const DOMAIN = process.env.NODE_ENV === "production" 
     ? "dsa-tracker-frontend-kappa.vercel.app" 
     : "localhost";
+
+
 // create new user 
 router.post('/signup',async(req,res)=>{
      
@@ -53,7 +55,7 @@ router.post('/signup',async(req,res)=>{
 
 router.post('/signin',async(req,res)=>{
     const {email,password}=req.body;
-   console.log("Signin body ",req.body)
+   console.log("Signin body ",req.body,"domain ",DOMAIN)
     // check if email exists
     try{
     const user=await User.findOne({email:email})
