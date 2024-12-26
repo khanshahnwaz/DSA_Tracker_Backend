@@ -45,7 +45,7 @@ router.post('/signup',async(req,res)=>{
         console.log("token ",token)
             const expires=new Date();
             expires.setDate(expires.getDate()+7)
-            res.cookie(COOKIE_NAME,token,{path:"/",domain:DOMAIN,expires,httpOnly:true,signed:false,secure:NODE_ENV === 'production'})
+            res.cookie(COOKIE_NAME,token,{path:"/",expires,httpOnly:true,signed:false,secure:NODE_ENV === 'production'})
 
         return res.status(201).json({message:"OK",name:user.name,email:user.email})
         }catch(err){
