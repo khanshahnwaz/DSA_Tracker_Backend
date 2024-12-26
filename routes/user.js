@@ -81,7 +81,7 @@ if(!isPasswordCorrect)return res.status(403).send("Incorrect Password .")
     const token=createToken(user._id.toString(),user.email,"7d")
     const expires=new Date();
     expires.setDate(expires.getDate()+7)
-    res.cookie(COOKIE_NAME,token,{path:"/",domain:DOMAIN,expires,httpOnly:true,signed:false,secure: process.env.NODE_ENV === 'production'})
+    res.cookie(COOKIE_NAME,token,{path:"/",expires,httpOnly:true,signed:false,secure: process.env.NODE_ENV === 'production'})
 
     return res.status(200).json({message:"OK",name:user.name,email:user.email})
 }catch(err){
