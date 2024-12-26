@@ -15,7 +15,7 @@ const DOMAIN = process.env.NODE_ENV === "production"
 router.post('/signup',async(req,res)=>{
      
     // get the user from requests
-   console.log("signup body :",req.body)
+   console.log("signup body :",req.body,"domain ",DOMAIN,"Cookie",COOKIE_NAME)
     const {name,email,password}=req.body;
     // first is passowrd and second is encryption round
     const existing=await User.findOne({email:email});
@@ -25,7 +25,7 @@ router.post('/signup',async(req,res)=>{
         // console.log(hashedPassword);
     const user=  new User({name,email,password:hashedPassword});
         await user.save();
-        
+        console.log("user created")
         // clear old cookie
         res.clearCookie(COOKIE_NAME,
             {
@@ -36,7 +36,7 @@ router.post('/signup',async(req,res)=>{
 
             }
         );
-        
+        console.log("Cookie cleared.")
         // create token and store cookie 
         try{
 
