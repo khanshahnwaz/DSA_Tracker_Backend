@@ -82,7 +82,7 @@ app.get('/', (req, res) => {
   res.send('Hello! Welcome to DSA_Tracker.');
 });
 console.log("Cookie secret ",process.env.COOKIE_SECRET)
-app.use(cookieParser(process.env.COOKIE_SECRET))
+app.use(cookieParser("this is shahnwaz khan"))
 app.use('/api/dsa',verifyToken, dsaRoute);
 app.use('/api/user',userRoute);
 export default (req, res) => {
