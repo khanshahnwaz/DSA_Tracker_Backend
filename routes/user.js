@@ -55,7 +55,7 @@ router.post('/signup',async(req,res)=>{
 
 router.post('/signin',async(req,res)=>{
     const {email,password}=req.body;
-   console.log("Signin body ",req.body,"domain ",DOMAIN)
+   console.log("Signin body ",req.body,"domain ",DOMAIN,"Cookie",COOKIE_NAME)
     // check if email exists
     try{
     const user=await User.findOne({email:email})
