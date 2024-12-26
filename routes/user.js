@@ -72,8 +72,8 @@ if(!isPasswordCorrect)return res.status(403).send("Incorrect Password .")
             path:"/",
             httpOnly:true,
             domain:DOMAIN,
-            signed:false
-
+            signed:false,
+            sameSite:'none'
         }
     );
     console.log("Cookie cleared.")
@@ -119,8 +119,8 @@ router.get('/signout',async(req,res)=>{
         path:"/",
         httpOnly:true,
         domain:DOMAIN,
-        signed:false
-
+        signed:false,
+        sameSite:'none'
     })
      // Log response headers
      console.log(res.getHeaders());
