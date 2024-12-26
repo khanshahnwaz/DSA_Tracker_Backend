@@ -11,9 +11,9 @@
 
 // module.exports = mongoose.model('DSA', DSASchema);
 
-import mongoose from 'mongoose';
+import mongoose, { mongo } from 'mongoose';
 
-const DSASchema = new mongoose.Schema({
+export const DSASchema = new mongoose.Schema({
   title: String,
   topic: String,
   bruteForce: String,
@@ -22,6 +22,6 @@ const DSASchema = new mongoose.Schema({
   date: { type: Date, default: Date.now }
 });
 
-const DSA = mongoose.model('DSA', DSASchema);
+// no need of dsa model, it is just a schema which is uses in user model
+export const Dsa=mongoose.model('dsa',DSASchema)
 
-export default DSA;
