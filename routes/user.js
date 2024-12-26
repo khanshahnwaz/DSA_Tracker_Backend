@@ -27,18 +27,18 @@ router.post('/signup',async(req,res)=>{
         await user.save();
         console.log("user created")
         // clear old cookie
-        // res.clearCookie(COOKIE_NAME,
-        //     {
-        //         path:"/",
-        //         httpOnly:true,
-        //         domain:DOMAIN,
-        //         signed:false
+        res.clearCookie(COOKIE_NAME,
+            {
+                path:"/",
+                httpOnly:true,
+                domain:DOMAIN,
+                signed:false
 
-        //     }
-        // );
+            }
+        );
         console.log("Cookie cleared.")
         // create token and store cookie 
-        try{
+        
 
         
         const token=createToken(user._id.toString(),user.email,"7d")
@@ -48,9 +48,7 @@ router.post('/signup',async(req,res)=>{
             res.cookie(COOKIE_NAME,token,{path:"/",expires,httpOnly:true,signed:false,secure:NODE_ENV === 'production'})
 
         return res.status(201).json({message:"OK",name:user.name,email:user.email})
-        }catch(err){
-            return res.status(500).json({message:"Interval server error",error:err})
-        }
+        
 })
 
 router.post('/signin',async(req,res)=>{
