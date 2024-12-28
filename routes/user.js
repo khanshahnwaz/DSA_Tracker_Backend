@@ -32,7 +32,8 @@ router.post('/signup',async(req,res)=>{
                 path:"/",
                 httpOnly:true,
                 domain:DOMAIN,
-                signed:false
+                signed:false,
+                secure:true
 
             }
         );
@@ -45,7 +46,7 @@ router.post('/signup',async(req,res)=>{
         console.log("token ",token)
             const expires=new Date();
             expires.setDate(expires.getDate()+7)
-            res.cookie(COOKIE_NAME,token,{path:"/",expires,httpOnly:true,signed:false,secure:process.env.NODE_ENV === 'production',sameSite:'none'})
+            res.cookie(COOKIE_NAME,token,{path:"/",expires,httpOnly:true,signed:false,secure:process.env.NODE_ENV === 'production',sameSite:'none',secure:true})
 
         return res.status(201).json({message:"OK",name:user.name,email:user.email})
         }catch(err){
@@ -73,7 +74,8 @@ if(!isPasswordCorrect)return res.status(403).send("Incorrect Password .")
             httpOnly:true,
             domain:DOMAIN,
             signed:false,
-            sameSite:'none'
+            sameSite:'none',
+            secure:true
         }
     );
     console.log("Cookie cleared.")
@@ -81,7 +83,7 @@ if(!isPasswordCorrect)return res.status(403).send("Incorrect Password .")
     const token=createToken(user._id.toString(),user.email,"7d")
     const expires=new Date();
     expires.setDate(expires.getDate()+7)
-    res.cookie(COOKIE_NAME,token,{path:"/",expires,httpOnly:true,signed:false,secure: process.env.NODE_ENV === 'production',sameSite:'none'})
+    res.cookie(COOKIE_NAME,token,{path:"/",expires,httpOnly:true,signed:false,secure: process.env.NODE_ENV === 'production',sameSite:'none',secure:true})
 
     return res.status(200).json({message:"OK",name:user.name,email:user.email})
 }catch(err){
@@ -120,7 +122,8 @@ router.get('/signout',async(req,res)=>{
         httpOnly:true,
         domain:DOMAIN,
         signed:false,
-        sameSite:'none'
+        sameSite:'none',
+        secure:true
     })
      // Log response headers
      console.log(res.getHeaders());
