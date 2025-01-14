@@ -92,6 +92,7 @@ if(!isPasswordCorrect)return res.status(403).send("Incorrect Password .")
     
 }
 })
+// rolled back 30 commits
 
 // check if user exists 
 router.get('/auth-status',verifyToken,async(req,res)=>{
